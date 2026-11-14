@@ -1,0 +1,282 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-11T16:07:57.663Z",
+  "title": "Design System: EV-COST",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Ink Pill",
+        "canonical": "#111111",
+        "dark": "#f2f2f3"
+      },
+      "accent": {
+        "role": "secondary",
+        "displayName": "Accent Blue",
+        "canonical": "#2f6feb",
+        "dark": "#5b93ff",
+        "tonalRamp": [
+          "#0f2a63",
+          "#1f5bd1",
+          "#2f6feb",
+          "#5b93ff",
+          "#8fb4ff",
+          "#bcd3ff",
+          "#dbe7ff",
+          "#eaf1fe"
+        ]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Canvas",
+        "canonical": "#f6f6f5",
+        "dark": "#0c0c0d"
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "canonical": "#ffffff",
+        "dark": "#161618"
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#e6e6e3",
+        "dark": "#26262a"
+      },
+      "good": {
+        "role": "status",
+        "displayName": "Diff Green",
+        "canonical": "#1a7f37",
+        "dark": "#48c26a"
+      },
+      "bad": {
+        "role": "status",
+        "displayName": "Diff Red",
+        "canonical": "#cf222e",
+        "dark": "#ff6b6b"
+      }
+    },
+    "typographyMeta": {
+      "hero": {
+        "displayName": "Hero",
+        "purpose": "Overview verdict headline only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Project title."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Answer chips and given values."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Formulas, substitutions, signed diffs, key hints."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card",
+        "value": "0 1px 2px rgb(17 17 17 / 0.04), 0 0 0 1px rgb(17 17 17 / 0.02)",
+        "purpose": "Resting cards; dark: 0 1px 2px rgb(0 0 0 / 0.4)."
+      },
+      {
+        "name": "float",
+        "value": "0 12px 32px -8px rgb(17 17 17 / 0.16), 0 2px 6px rgb(17 17 17 / 0.06)",
+        "purpose": "Dialogs, drawer, toasts, tooltips, hero forecast card."
+      }
+    ],
+    "motion": [
+      {
+        "name": "state",
+        "value": "150ms ease-out",
+        "purpose": "Colour and border transitions on controls."
+      },
+      {
+        "name": "rise-in",
+        "value": "180ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Dialogs and toasts entering."
+      },
+      {
+        "name": "slide-in-right",
+        "value": "200ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Inspector drawer entering."
+      },
+      {
+        "name": "fade-in",
+        "value": "160ms ease-out",
+        "purpose": "Overlay scrims."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm (phone gutters, sheets)",
+        "value": "640px"
+      },
+      {
+        "name": "md (worked sheet four-up)",
+        "value": "768px"
+      },
+      {
+        "name": "lg (persistent sidebar; drawer below)",
+        "value": "1024px"
+      },
+      {
+        "name": "hero forecast beside verdict",
+        "value": "1180px"
+      },
+      {
+        "name": "xl (two-up charts)",
+        "value": "1280px"
+      },
+      {
+        "name": "margin-column",
+        "value": "1360px"
+      }
+    ],
+    "shapes": {
+      "radiusRoles": [
+        {
+          "name": "xl",
+          "value": "14px",
+          "purpose": "Cards, dialogs, drawer."
+        },
+        {
+          "name": "md",
+          "value": "8px",
+          "purpose": "Nav items, answer chips."
+        },
+        {
+          "name": "default",
+          "value": "6px",
+          "purpose": "Inputs."
+        },
+        {
+          "name": "full",
+          "value": "9999px",
+          "purpose": "Buttons, segmented controls, tags."
+        }
+      ]
+    },
+    "themes": {
+      "attribute": "data-theme on <html>",
+      "values": [
+        "light",
+        "dark"
+      ],
+      "preference": [
+        "light",
+        "dark",
+        "system"
+      ],
+      "default": "system (light when OS is light)"
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one ink pill per view.",
+      "html": "<button class=\"ds-btn-primary\">+ Work package</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 16px;border:0;border-radius:9999px;background:var(--primary,#111);color:var(--primary-fg,#fff);font:500 14px/1 'Geist Variable',system-ui,sans-serif;transition:background-color .15s;cursor:pointer}.ds-btn-primary:hover{background:var(--primary-hover,#2a2a2a)}.ds-btn-primary:focus-visible{outline:2px solid var(--spot,#2f6feb);outline-offset:2px}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Outline pill for supporting actions.",
+      "html": "<button class=\"ds-btn-secondary\">Export CSV</button>",
+      "css": ".ds-btn-secondary{display:inline-flex;align-items:center;height:36px;padding:0 16px;border:1px solid var(--rule-strong,#d4d4d0);border-radius:9999px;background:var(--paper,#fff);color:var(--ink,#111);font:500 14px/1 'Geist Variable',system-ui,sans-serif;box-shadow:0 1px 2px rgb(17 17 17/.04);cursor:pointer}.ds-btn-secondary:hover{background:var(--subtle,#f1f1f0)}.ds-btn-secondary:focus-visible{outline:2px solid var(--spot,#2f6feb);outline-offset:2px}"
+    },
+    {
+      "name": "Segmented Control",
+      "kind": "chip",
+      "refersTo": "segmented",
+      "description": "Filters and the theme switch.",
+      "html": "<div class=\"ds-seg\"><button class=\"on\">Light</button><button>Dark</button><button>System</button></div>",
+      "css": ".ds-seg{display:inline-grid;grid-auto-flow:column;gap:2px;padding:2px;border-radius:9999px;background:var(--subtle-2,#e9e9e7)}.ds-seg button{height:28px;padding:0 12px;border:0;border-radius:9999px;background:transparent;color:var(--ink-3,#6e6e73);font:500 12px 'Geist Variable',system-ui,sans-serif;cursor:pointer}.ds-seg button.on{background:var(--paper,#fff);color:var(--ink,#111);box-shadow:0 1px 2px rgb(17 17 17/.06)}"
+    },
+    {
+      "name": "Diff Figures",
+      "kind": "custom",
+      "refersTo": "diff",
+      "description": "Signed money like a code diff.",
+      "html": "<span class=\"ds-diff ds-plus\">+$1,250</span> <span class=\"ds-diff ds-minus\">−$3,619</span>",
+      "css": ".ds-diff{font:500 13px 'Geist Mono Variable',ui-monospace,monospace}.ds-plus{color:var(--good,#1a7f37)}.ds-minus{color:var(--bad,#cf222e)}"
+    },
+    {
+      "name": "Worked Solution",
+      "kind": "custom",
+      "refersTo": "answer-chip",
+      "description": "Formula, substitution, answer chip, verdict.",
+      "html": "<div class=\"ds-w\"><div class=\"ds-wn\">Cost performance index</div><div class=\"ds-wm\"><b>CPI</b> = <b>EV</b> ÷ <b>AC</b></div><div class=\"ds-ws\">= 31,000 ÷ 33,200</div><span class=\"ds-wa\">0.93</span><div class=\"ds-wv\">Earns $0.93 per $1 spent</div></div>",
+      "css": ".ds-w{display:flex;flex-direction:column;gap:4px;width:210px;padding:16px 20px;background:var(--paper,#fff);border:1px solid var(--rule,#e6e6e3);border-radius:14px}.ds-wn{font:500 13px 'Geist Variable',system-ui;color:var(--ink-2,#4a4a4f)}.ds-wm,.ds-ws{font:400 14px 'Geist Mono Variable',ui-monospace,monospace;color:var(--ink,#111)}.ds-ws{color:var(--ink-3,#6e6e73)}.ds-wa{align-self:flex-start;margin-top:6px;padding:1px 8px;border-radius:8px;background:var(--answer-bg,#f1f1f0);box-shadow:inset 0 0 0 1px var(--answer-ring,#e3e3e0);font:600 28px/34px 'Geist Variable',system-ui}.ds-wv{font:500 13px 'Geist Variable',system-ui;color:var(--bad,#cf222e)}"
+    },
+    {
+      "name": "Command Menu",
+      "kind": "dialog",
+      "refersTo": "command-menu",
+      "description": "Keyboard-first search over every page, action, project and work package. Opens with Ctrl/Cmd+K.",
+      "html": "<div class=\"ds-cmd\"><div class=\"ds-cmd-search\">Search pages, actions and work packages<kbd>Esc</kbd></div><div class=\"ds-cmd-group\">Go to</div><div class=\"ds-cmd-opt is-active\">Overview<kbd>Alt+1</kbd></div><div class=\"ds-cmd-opt\">Work packages<kbd>Alt+2</kbd></div></div>",
+      "css": ".ds-cmd{width:360px;border:1px solid var(--rule,#e6e6e3);border-radius:14px;background:var(--paper,#fff);box-shadow:0 12px 32px -8px rgb(17 17 17/.16),0 2px 6px rgb(17 17 17/.06);font:400 14px/1.4 'Geist Variable',system-ui,sans-serif;color:var(--ink-2,#4a4a4f);overflow:hidden}.ds-cmd-search{display:flex;align-items:center;justify-content:space-between;height:48px;padding:0 16px;border-bottom:1px solid var(--rule,#e6e6e3);color:var(--ink-3,#6e6e73)}.ds-cmd-group{padding:10px 16px 4px;font-size:13px;font-weight:500;color:var(--ink-3,#6e6e73)}.ds-cmd-opt{display:flex;align-items:center;justify-content:space-between;height:36px;margin:0 6px;padding:0 10px;border-radius:8px}.ds-cmd-opt.is-active{background:var(--subtle-2,#e9e9e7);color:var(--ink,#111)}.ds-cmd kbd{font:400 12px/1 'Geist Mono Variable',ui-monospace,monospace;color:var(--ink-3,#6e6e73);border:1px solid var(--rule,#e6e6e3);border-radius:4px;padding:2px 6px}"
+    },
+    {
+      "name": "Slider",
+      "kind": "input",
+      "refersTo": "slider-thumb",
+      "description": "What-if control: a thin ink-filled track, a ringed thumb, the value in mono, and outline preset chips under it.",
+      "html": "<div class=\"ds-slider\"><div class=\"ds-slider-row\"><span>Cost efficiency from now on</span><output>1.00</output></div><div class=\"ds-slider-track\"><i></i><b></b></div><div class=\"ds-slider-presets\"><button>Current 0.93</button><button class=\"is-active\">On plan 1.00</button></div></div>",
+      "css": ".ds-slider{width:320px;font:600 13px/1.4 'Geist Variable',system-ui,sans-serif;color:var(--ink-2,#4a4a4f)}.ds-slider-row{display:flex;justify-content:space-between;align-items:baseline}.ds-slider-row output{font:600 15px/1 'Geist Mono Variable',ui-monospace,monospace;color:var(--ink,#111)}.ds-slider-track{position:relative;height:4px;margin:14px 0 12px;border-radius:9999px;background:var(--subtle-2,#e9e9e7)}.ds-slider-track i{position:absolute;inset:0 50% 0 0;border-radius:9999px;background:var(--ink,#111)}.ds-slider-track b{position:absolute;left:50%;top:-6px;width:16px;height:16px;margin-left:-8px;box-sizing:border-box;border-radius:9999px;border:2px solid var(--ink,#111);background:var(--paper,#fff)}.ds-slider-presets{display:flex;gap:6px}.ds-slider-presets button{height:28px;padding:0 10px;border:1px solid var(--rule-strong,#d4d4d0);border-radius:9999px;background:var(--paper,#fff);color:var(--ink-2,#4a4a4f);font:500 12px/1 'Geist Variable',system-ui,sans-serif}.ds-slider-presets button.is-active{border-color:var(--ink,#111);background:var(--subtle-2,#e9e9e7);color:var(--ink,#111)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Dev Tool",
+    "overview": "EV-COST takes its look from the Devin product site and app, a reference the user pinned on 2026-11-10: soft off-white canvas, hairline white cards, a calm grotesk, solid ink pills and git-diff figures. The blurred backdrop appears once, behind the hero forecast card. Every derived number still shows its working, with formulas set as code lines in Geist Mono. Light is the default; dark is a separately tuned theme.",
+    "keyCharacteristics": [
+      "Off-white canvas, white cards with 14px corners and hairlines.",
+      "One ink pill per view; outline pills elsewhere.",
+      "Geist UI, Geist Mono for formulas and diffs.",
+      "Signed figures as diffs in green and red.",
+      "Status as icon + word + colour.",
+      "Light, dark and system themes."
+    ],
+    "rules": [
+      {
+        "name": "The One Ink Pill Rule",
+        "body": "Each view has at most one solid pill: its primary action.",
+        "section": "colors"
+      },
+      {
+        "name": "The Diff Rule",
+        "body": "Signed money is set in Geist Mono with an explicit + or −, coloured like a code diff.",
+        "section": "colors"
+      },
+      {
+        "name": "The Sentence-Case Rule",
+        "body": "Section labels are small, sentence case and muted, never uppercase eyebrows.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Backdrop Rule",
+        "body": "The blurred backdrop appears once, behind the hero forecast card.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep one ink pill per view, for the primary action.",
+      "Do set signed money in Geist Mono with + or −, coloured like a diff.",
+      "Do pair every status colour with its icon and word.",
+      "Do test every new surface in both themes; tokens swap through data-theme on <html>.",
+      "Do use the validated series colours for each theme."
+    ],
+    "donts": [
+      "Don't use uppercase tracked eyebrows or kickers above headings.",
+      "Don't add the blurred backdrop anywhere except the hero forecast card.",
+      "Don't hard-code colours in components; use the tokens, or dark mode breaks.",
+      "Don't use text below 12px, or monospace for anything other than formulas, diffs and key hints.",
+      "Don't add coloured side stripes, gradient text, or heavy drop shadows on resting cards."
+    ]
+  }
+}

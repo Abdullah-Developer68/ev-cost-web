@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>EV-COST</title>
+    <meta
+      name="description"
+      content="EV-COST: an earned value workbook for software projects. Track planned value, earned value and actual cost per work package, read CPI, SPI, EAC and TCPI, and export a report. Runs in your browser; data stays on this device."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f6f6f5" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'"
+    />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <!-- Applies the saved theme before the first paint. -->
+    <script src="./theme-init.js"></script>
+  </head>
+
+  <body>
+    <noscript>EV-COST needs JavaScript to run.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

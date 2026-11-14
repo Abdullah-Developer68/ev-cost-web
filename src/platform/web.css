@@ -1,0 +1,53 @@
+/*
+ * Web-only rules on top of the shared design tokens in assets/main.css.
+ * Nothing here introduces a colour or a size outside DESIGN.md's scales.
+ */
+
+/* Touch: every control gets a 44px hit area on coarse pointers. */
+@media (pointer: coarse) {
+  button,
+  [role='button'],
+  [role='radio'],
+  [role='tab'],
+  a[href],
+  select,
+  input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']) {
+    min-height: 44px;
+  }
+  /* Icon-only buttons are square targets. */
+  button:has(> svg:only-child) {
+    min-width: 44px;
+  }
+  /* iOS Safari zooms the page into any field with text under 16px. The h3 step
+     (1.0625rem, 17px) is the nearest size on the type ramp above that. :is() gives
+     select and textarea the input selector's weight, so a text-* class cannot undo it. */
+  :is(
+    input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']),
+    select,
+    textarea
+  ) {
+    font-size: 1.0625rem;
+  }
+  /* Range sliders: a taller hit area and a thumb big enough for a finger. */
+  .slider {
+    height: 44px;
+  }
+  .slider::-webkit-slider-thumb {
+    width: 24px;
+    height: 24px;
+    margin-top: -10px;
+  }
+  .slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Mobile browsers: the page itself never scrolls sideways; wide content scrolls in its card. */
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}

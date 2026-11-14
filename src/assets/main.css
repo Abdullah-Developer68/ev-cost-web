@@ -1,0 +1,319 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * EV-COST design tokens. Light is the default; dark applies when the OS prefers
+ * dark (unless the user forced light) or when the user picked dark explicitly.
+ */
+@layer base {
+  :root {
+    color-scheme: light;
+
+    /* Ink */
+    --ink: #111111;
+    --ink-2: #4a4a4f;
+    --ink-3: #6e6e73;
+
+    /* Surfaces: white cards on a soft off-white canvas */
+    --plane: #f6f6f5;
+    --paper: #ffffff;
+    --sunken: #fafaf9;
+    --subtle: #f1f1f0;
+    --subtle-2: #e9e9e7;
+    --rule: #e6e6e3;
+    --rule-strong: #d4d4d0;
+
+    /* Primary action: solid ink pill */
+    --primary: #111111;
+    --primary-hover: #2a2a2a;
+    --primary-fg: #ffffff;
+
+    /* Accent blue: focus, links, progress, unread dots */
+    --spot: #2f6feb;
+    --spot-ink: #1f5bd1;
+    --spot-soft: #eaf1fe;
+
+    /* Answer chip behind a computed result */
+    --answer-bg: #f1f1f0;
+    --answer-ring: #e3e3e0;
+
+    /* Status: always with an icon and a word */
+    --good: #1a7f37;
+    --good-bg: #e8f5ec;
+    --watch: #8a5a00;
+    --watch-bg: #fbf3df;
+    --risk: #b2470d;
+    --risk-bg: #fdeee4;
+    --bad: #cf222e;
+    --bad-bg: #fdecec;
+
+    /* Chart series (validated on #ffffff: CVD all-pairs, contrast >= 3:1) */
+    --series-pv: #2f6feb;
+    --series-ev: #17a17a;
+    --series-ac: #e5683a;
+    --series-bac: #dcdcd8;
+    --series-fav: #3a7fd0;
+    --series-unfav: #d03b3b;
+    --grid: #ececea;
+    --axis: #d4d4d0;
+
+    --scrim: rgb(17 17 17 / 0.28);
+    --shadow-card: 0 1px 2px rgb(17 17 17 / 0.04), 0 0 0 1px rgb(17 17 17 / 0.02);
+    --shadow-float: 0 12px 32px -8px rgb(17 17 17 / 0.16), 0 2px 6px rgb(17 17 17 / 0.06);
+
+    /* Abstract backdrop tones for the status card */
+    --aura-1: #c9d9f2;
+    --aura-2: #e8dccb;
+    --aura-3: #cfe5df;
+  }
+
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+    --ink: #ededee;
+    --ink-2: #b4b4b9;
+    --ink-3: #8d8d93;
+    --plane: #0c0c0d;
+    --paper: #161618;
+    --sunken: #121214;
+    --subtle: #1f1f22;
+    --subtle-2: #2a2a2e;
+    --rule: #26262a;
+    --rule-strong: #35353a;
+    --primary: #f2f2f3;
+    --primary-hover: #d9d9dc;
+    --primary-fg: #111111;
+    --spot: #5b93ff;
+    --spot-ink: #7aa7ff;
+    --spot-soft: #17233a;
+    --answer-bg: #232327;
+    --answer-ring: #303035;
+    --good: #48c26a;
+    --good-bg: #13291b;
+    --watch: #e0b04a;
+    --watch-bg: #2b2412;
+    --risk: #f08a4b;
+    --risk-bg: #2e1d12;
+    --bad: #ff6b6b;
+    --bad-bg: #331a1b;
+    --series-pv: #3f80f5;
+    --series-ev: #1f9e78;
+    --series-ac: #d9683c;
+    --series-bac: #303035;
+    --series-fav: #4a8ae8;
+    --series-unfav: #e25553;
+    --grid: #232327;
+    --axis: #3a3a40;
+    --scrim: rgb(0 0 0 / 0.55);
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 0 0 1px rgb(255 255 255 / 0.02);
+    --shadow-float: 0 16px 40px -8px rgb(0 0 0 / 0.6), 0 2px 8px rgb(0 0 0 / 0.4);
+    --aura-1: #1d2b46;
+    --aura-2: #2f261b;
+    --aura-3: #17302b;
+  }
+
+  * {
+    @apply border-rule;
+  }
+
+  body {
+    @apply bg-plane font-sans text-body text-ink antialiased;
+    font-feature-settings: 'ss01' 1;
+    caret-color: var(--spot);
+    transition:
+      background-color 160ms ease-out,
+      color 160ms ease-out;
+  }
+
+  ::selection {
+    background: var(--spot-soft);
+    color: var(--ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--spot);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  button,
+  [role='button'],
+  nav,
+  aside {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  table {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Metric symbols in running text (CPI, BAC) are bold, not italic */
+  var {
+    font-style: normal;
+    font-weight: 600;
+  }
+}
+
+@layer components {
+  /* Formulas and substitutions: code-like, in the mono */
+  .math {
+    @apply font-mono;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  .math var,
+  .math .var {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* The computed answer: a soft chip, like a result pill in a dev tool */
+  .answer {
+    display: inline-block;
+    padding: 0.04em 0.32em;
+    margin-left: -0.32em;
+    border-radius: 8px;
+    background: var(--answer-bg);
+    box-shadow: inset 0 0 0 1px var(--answer-ring);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Small sentence-case section labels (Devin's "Sessions", "Pinned") */
+  .label-caps {
+    @apply text-small font-medium text-ink-3;
+  }
+
+  /* Git-diff style signed figure: +$1,250 / −$500 */
+  .diff {
+    @apply font-mono text-small font-medium;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .card {
+    @apply rounded-xl border border-rule bg-paper;
+    box-shadow: var(--shadow-card);
+  }
+
+  .skeleton {
+    @apply relative overflow-hidden rounded-lg bg-subtle;
+  }
+
+  /* Range slider: a thin track filled in ink up to the thumb (--fill is set inline) */
+  .slider {
+    @apply block h-5 w-full cursor-pointer appearance-none bg-transparent;
+  }
+  .slider::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 9999px;
+    background: linear-gradient(
+      to right,
+      var(--ink) var(--fill, 50%),
+      var(--subtle-2) var(--fill, 50%)
+    );
+  }
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    margin-top: -6px;
+    border-radius: 9999px;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    box-shadow: var(--shadow-card);
+    transition: transform 150ms ease-out;
+  }
+  .slider:active::-webkit-slider-thumb {
+    transform: scale(1.12);
+  }
+  .slider::-moz-range-track {
+    height: 4px;
+    border-radius: 9999px;
+    background: var(--subtle-2);
+  }
+  .slider::-moz-range-progress {
+    height: 4px;
+    border-radius: 9999px;
+    background: var(--ink);
+  }
+  .slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 9999px;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    box-shadow: var(--shadow-card);
+  }
+  .slider:focus-visible {
+    outline: none;
+  }
+  .slider:focus-visible::-webkit-slider-thumb {
+    outline: 2px solid var(--spot);
+    outline-offset: 2px;
+  }
+  .slider:focus-visible::-moz-range-thumb {
+    outline: 2px solid var(--spot);
+    outline-offset: 2px;
+  }
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.08), transparent);
+    animation: shimmer 1.4s infinite;
+  }
+}
+
+/* Scrollbars themed from the palette */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--rule-strong);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-3);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Recharts: no focus box around the whole SVG on click */
+.recharts-wrapper svg:focus,
+.recharts-surface:focus {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Display headings run slightly tight, like the reference's headlines */
+.font-display {
+  letter-spacing: -0.022em;
+}
