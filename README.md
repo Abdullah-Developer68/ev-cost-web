@@ -1,5 +1,7 @@
 # EV-COST Web
 
+**Live:** https://ev-cost-web.vercel.app
+
 EV-COST is an Earned Value Management (EVM) workbook for software projects. This is its browser edition. It tracks budget, planned and actual progress, and actual cost per work package, and works out all 12 EVM metrics (BAC, PV, EV, AC, CV, SV, CPI, SPI, EAC, ETC, VAC, TCPI) with the formula and inputs shown for each. It turns the results into ranked, rule-based next actions, lets you test a recovery plan with a what-if forecast, and exports a CSV or a PDF report. A command menu (Ctrl/Cmd+K, or the search button on phones) reaches every page, action and work package.
 
 It is the same app as the Electron desktop edition in `../EV-COST`, with the same interface and design system. It runs as a static single-page app with no server and no secrets, and it works on phones, tablets and desktops (360px and up).
@@ -43,9 +45,28 @@ npm run lint
 npm run format:check
 npm test            # vitest unit tests
 npm run test:e2e    # build, serve, drive Chromium, screenshots in test-results/
+npm run test:security                                   # security tests on the local build
+TARGET_URL=https://ev-cost-web.vercel.app node tests/e2e/security.mjs   # ...or on the live site
 ```
 
+`test:security` serves `dist/` with the same headers as `vercel.json` and checks, with inert test data only: malicious uploads (renamed executables, zip bomb, macro workbook, zip-slip, formula injection), stored XSS and CSP, forged or tampered storage, cross-origin reads and clickjacking, a request burst and an oversized import, and the security headers.
+
 The end-to-end script never downloads a browser. It uses `CHROMIUM_PATH` if set, otherwise the newest Chromium cached by Playwright under `~/.cache/ms-playwright`.
+
+## Cost analysis features
+
+- **Calculations:** BAC (estimated cost), AC (actual cost), the variances CV, SV and VAC, and the **percentage variances** CV% = CV ÷ EV, SV% = SV ÷ PV and VAC% = VAC ÷ BAC, per package and for the project.
+- **Charts:** budget/plan/earned/spent bars, a CPI × SPI performance map, a forecast-against-budget bullet chart, variance bars, the EAC range and the unusual-spend bars.
+- **AI feature, unusual spend detection** (`src/lib/anomalies.ts`): an unsupervised outlier detector. It scores each package's cost per unit of earned value (AC ÷ EV) against the rest of the project with the robust modified z-score (median and MAD, Iglewicz and Hoaglin). It flags unusually high or low spend, and spend with no progress, and writes a plain-language summary. It runs entirely in the browser.
+- **Report:** PDF (worked solution, percentage variances, breakdown, actions, unusual spend, forecast range) and CSV export.
+
+## Security
+
+- Uploads are checked by content before parsing (`src/lib/uploadGuard.ts`): extension allow-list, 10 MB cap, magic bytes, binary detection, ZIP central-directory checks against zip bombs, ZIP64, macros and zip-slip paths, plus a 5,000-row cap.
+- Text is stripped of spreadsheet formula prefixes on import and neutralised on CSV export.
+- Stored data is validated and normalised on every read (ids, project links, numeric ranges).
+- `vercel.json` sends CSP (with `frame-ancestors 'none'`), X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy, COOP/CORP and HSTS.
+- `uuid` is pinned to 11.1.1 via `overrides` (GHSA-w5hq-g745-h8pq through exceljs); `npm audit` reports 0 vulnerabilities.
 
 ## Build and deploy
 
@@ -53,6 +74,8 @@ The end-to-end script never downloads a browser. It uses `CHROMIUM_PATH` if set,
 npm run build       # type-checks, then writes dist/
 npm run preview     # serve dist/ locally
 ```
+
+Deployed to Vercel with the CLI (`vercel deploy --prod`); `vercel.json` sets the build and the security headers.
 
 `dist/` is plain static files with relative paths (`base: './'`) and hash routing. Upload it to any static host (GitHub Pages, Netlify, Cloudflare Pages, S3, a university web folder), at the root or in a sub-folder. No rewrites or server config are needed.
 

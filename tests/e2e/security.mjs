@@ -248,13 +248,15 @@ try {
     for (const u of UPLOADS) {
       const text = await dropFile(page, u.name, u.bytes)
       const match = text.match(u.expect)
+      if (u.name === 'bomb.xlsx') {
+        await page.screenshot({ path: path.join(outDir, 'security-upload-refused.png') })
+      }
       check(
         `refuses ${u.label}`,
         match && !/[1-9]\d* ready to import/.test(text),
         match?.[0] ?? text.slice(0, 90)
       )
     }
-    await page.screenshot({ path: path.join(outDir, 'security-upload-refused.png') })
 
     const formulaCsv = [
       'Module Name,Category,BAC,Planned %,Actual %,Actual Cost,Notes',

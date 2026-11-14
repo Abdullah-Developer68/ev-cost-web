@@ -1,5 +1,12 @@
 import React, { useRef, useState } from 'react'
-import { AlertTriangle, Download, FileSpreadsheet, ShieldCheck, Upload } from 'lucide-react'
+import {
+  AlertTriangle,
+  Download,
+  FileSpreadsheet,
+  ShieldAlert,
+  ShieldCheck,
+  Upload
+} from 'lucide-react'
 import { useAppStore } from '../../store/useAppStore'
 import { useCostStore } from '../../store/useCostStore'
 import {
@@ -22,6 +29,8 @@ interface ParseState {
   rows: ParsedWorkPackage[]
   errors: string[]
   sanitizedCount: number
+  /** The whole file was refused before parsing (wrong type, unsafe content, too large). */
+  rejected?: boolean
 }
 
 const ImportBody: React.FC<{ onClose: () => void }> = ({ onClose }) => {
@@ -35,7 +44,13 @@ const ImportBody: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
   const handleFile = async (file: File): Promise<void> => {
     const reject = (error: string): void =>
-      setState({ fileName: file.name, rows: [], errors: [error], sanitizedCount: 0 })
+      setState({
+        fileName: file.name,
+        rows: [],
+        errors: [error],
+        sanitizedCount: 0,
+        rejected: true
+      })
     setParsing(true)
     try {
       // Name, size and content checks before any parser sees the bytes.
@@ -144,10 +159,17 @@ const ImportBody: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
         {state && (
           <div className="flex flex-wrap gap-2 text-small" aria-live="polite">
-            <span className="rounded-sm bg-good-bg px-2 py-1 font-semibold text-good">
-              {state.rows.length} ready to import
-            </span>
-            {state.errors.length > 0 && (
+            {state.rejected ? (
+              <span className="inline-flex items-center gap-1 rounded-sm bg-bad-bg px-2 py-1 font-semibold text-bad">
+                <ShieldAlert className="size-3.5" aria-hidden />
+                File refused: nothing was read
+              </span>
+            ) : (
+              <span className="rounded-sm bg-good-bg px-2 py-1 font-semibold text-good">
+                {state.rows.length} ready to import
+              </span>
+            )}
+            {state.errors.length > 0 && !state.rejected && (
               <span className="rounded-sm bg-risk-bg px-2 py-1 font-semibold text-risk">
                 {state.errors.length} row{state.errors.length === 1 ? '' : 's'} skipped
               </span>
@@ -166,7 +188,7 @@ const ImportBody: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           <div className="rounded border border-risk/25 bg-risk-bg px-4 py-3">
             <div className="flex items-center gap-1.5 text-body font-semibold text-risk">
               <AlertTriangle className="size-4" aria-hidden />
-              Skipped rows
+              {state.rejected ? 'Why the file was refused' : 'Skipped rows'}
             </div>
             <ul className="mt-1 max-h-28 list-disc space-y-0.5 overflow-auto pl-5 text-small text-ink-2">
               {state.errors.map((err) => (

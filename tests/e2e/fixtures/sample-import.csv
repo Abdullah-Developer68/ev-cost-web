@@ -1,0 +1,5 @@
+Module Name,Category,Budget at Completion (BAC),Planned % Complete,Actual % Complete,Actual Cost (AC),Notes
+Mobile Offline Sync,Core Engineering,"$7,500",30%,20%,"$2,400",Synthetic test row
+Billing Webhooks,Integrations,9000,50,45,4100,Synthetic test row
+=HYPERLINK("http://example.invalid"),QA,1000,10,10,100,Formula injection test (sanitised)
+Bad Percent Row,QA,100,150,10,10,Invalid: planned % above 100
